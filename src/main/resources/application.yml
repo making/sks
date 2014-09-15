@@ -1,0 +1,8 @@
+spring:
+    datasource:
+      driverClassName: oracle.jdbc.OracleDriver
+      url: jdbc:oracle:thin:@192.168.11.120:1521:orcl
+      username: dev
+      password: dev
+    thymeleaf.cache: false
+security.basic.enabled: false

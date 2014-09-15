@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/><!-- (1) -->
+    <logger name="jdbc" level="OFF"/><!-- (2) -->
+    <logger name="jdbc.sqltiming" level="DEBUG"/><!-- (3) -->
+</configuration>
