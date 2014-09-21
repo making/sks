@@ -1,7 +1,10 @@
 package sks;
 
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
+import org.flywaydb.core.Flyway;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.test.TestRestTemplate;
@@ -43,5 +46,23 @@ public class AppConfig {
                 new FormHttpMessageConverter(),
                 new StringHttpMessageConverter()));
         return restTemplate;
+    }
+
+    @Bean
+    BeanPostProcessor flywayBeanPostProcessor() {
+        return new BeanPostProcessor() {
+            @Override
+            public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+                if (bean instanceof Flyway) {
+                    ((Flyway) bean).setValidateOnMigrate(false);
+                }
+                return bean;
+            }
+
+            @Override
+            public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+                return bean;
+            }
+        };
     }
 }
