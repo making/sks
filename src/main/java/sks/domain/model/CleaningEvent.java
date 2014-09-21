@@ -2,10 +2,13 @@ package sks.domain.model;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 public class CleaningEvent {
-    private final Integer cleaningTypeId;
-    private final LocalDateTime cleaningDateTime;
+    private final int cleaningTypeId;
+    private final String cleaningUser;
+    private final LocalDate cleaningDate;
+    private final String registerUser;
+    private final LocalDate registerDate;
 }
