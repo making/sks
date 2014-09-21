@@ -14,7 +14,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import sks.domain.repository.dummy.DummyRepository;
+
+import sks.domain.repository.cleaningtype.CleaningTypeRepository;
 
 @EnableAutoConfiguration(exclude = {
         EmbeddedServletContainerAutoConfiguration.class,
@@ -39,10 +40,10 @@ public class SampleApp implements CommandLineRunner {
     }
 
     @Autowired
-    DummyRepository dummyRepository;
-
+    CleaningTypeRepository cleaningTypeRepository;
     @Override
     public void run(String... args) throws Exception {
-        System.out.println(dummyRepository.findOne());
+        System.out.println(cleaningTypeRepository.findOne(99));
+        System.out.println(cleaningTypeRepository.findAll());
     }
 }

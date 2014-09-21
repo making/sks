@@ -1,0 +1,11 @@
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (1, 'Restroom', 14);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (2, 'Bathroom', 14);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (3, 'Lavatory', 7);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (4, 'Kitchen', 7);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (5, 'Flooring', 2);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (6, 'Bed', 28);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (7, 'Sofa', 30);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (8, 'Air-conditioner', 180);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (9, 'Window', 30);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (10, 'TV stand', 14);
+INSERT INTO cleaning_type (cleaning_type_id, cleaning_type_name, cleaning_type_cycle) VALUES (99, 'Roomba', 3);

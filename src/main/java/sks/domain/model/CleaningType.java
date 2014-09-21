@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class CleaningType {
-    private final Integer cleaningTypeId;
+    private final int cleaningTypeId;
     private final String cleaningTypeName;
+    private final int cleaningTypeCycle;
 }
