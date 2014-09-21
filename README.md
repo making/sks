@@ -1,6 +1,6 @@
 At first time, run
 
-    $ mvn install
+    $ mvn install -P install-oracle-driver
 
 to install oracle jdbc driver.
 

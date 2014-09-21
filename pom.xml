@@ -60,11 +60,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>${ojdbc6.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.lazyluke</groupId>
             <artifactId>log4jdbc-remix</artifactId>
             <version>0.2.7</version>
@@ -92,28 +87,52 @@
         <ojdbc6.version>11.2.0.2.0</ojdbc6.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.oracle</groupId>
+                    <artifactId>ojdbc6</artifactId>
+                    <version>${ojdbc6.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>install-oracle-driver</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-install-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>install-ojdbc6</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>install-file</goal>
+                                </goals>
+                                <configuration>
+                                    <file>
+                                        ${basedir}/3rdparty/com/oracle/ojdbc6/${ojdbc6.version}/ojdbc6-${ojdbc6.version}.jar
+                                    </file>
+                                    <pomFile>
+                                        ${basedir}/3rdparty/com/oracle/ojdbc6/${ojdbc6.version}/ojdbc6-${ojdbc6.version}.pom
+                                    </pomFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>install-ojdbc6</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <file>${basedir}/3rdparty/com/oracle/ojdbc6/${ojdbc6.version}/ojdbc6-${ojdbc6.version}.jar
-                            </file>
-                            <pomFile>
-                                ${basedir}/3rdparty/com/oracle/ojdbc6/${ojdbc6.version}/ojdbc6-${ojdbc6.version}.pom
-                            </pomFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
