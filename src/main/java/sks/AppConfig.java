@@ -12,15 +12,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
+import java.util.Properties;
 
 @Configuration
 public class AppConfig {
     @Autowired
     DataSourceProperties dataSourceProperties;
+    @Autowired
+    MailConfigProperties mailConfigProperties;
+
     DataSource dataSource;
 
     @Bean
@@ -47,6 +53,22 @@ public class AppConfig {
                 new StringHttpMessageConverter()));
         return restTemplate;
     }
+
+    @Bean
+    JavaMailSender javaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        Properties mailProperties = new Properties();
+        mailProperties.put("mail.smtp.auth", mailConfigProperties.isAuth());
+        mailProperties.put("mail.smtp.starttls.enable", mailConfigProperties.isStarttls());
+        mailSender.setJavaMailProperties(mailProperties);
+        mailSender.setHost(mailConfigProperties.getHost());
+        mailSender.setPort(mailConfigProperties.getPort());
+        mailSender.setProtocol(mailConfigProperties.getProtocol());
+        mailSender.setUsername(mailConfigProperties.getUsername());
+        mailSender.setPassword(mailConfigProperties.getPassword());
+        return mailSender;
+    }
+
 
     @Bean
     BeanPostProcessor flywayBeanPostProcessor() {

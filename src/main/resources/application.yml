@@ -6,3 +6,10 @@ spring:
       password: dev
     thymeleaf.cache: false
 security.basic.enabled: false
+
+sks:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: <Your Account>@gmail.com
+    password: <Your Password>
