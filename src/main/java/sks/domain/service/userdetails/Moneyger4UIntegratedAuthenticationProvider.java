@@ -3,6 +3,7 @@ package sks.domain.service.userdetails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import sks.domain.model.Notification;
+import sks.domain.repository.notification.NotificationRepository;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,6 +23,8 @@ import java.util.regex.Pattern;
 @Service
 public class Moneyger4UIntegratedAuthenticationProvider implements AuthenticationProvider {
 
+    @Autowired
+    NotificationRepository notificationRepository;
     @Autowired
     RestTemplate restTemplate;
     @Value("${moneyger4u.url:http://moneyger4u.ik.am}")
@@ -95,8 +100,13 @@ public class Moneyger4UIntegratedAuthenticationProvider implements Authenticatio
         String[] dispName = dispNameMatcher.group(1).split("\\s", 2);
         String lastName = dispName[0];
         String firstName = dispName[1];
-
-        return new LoginUserDetails(username, firstName, lastName);
+        Notification notification;
+        try {
+            notification = notificationRepository.findOne(username);
+        } catch (EmptyResultDataAccessException e) {
+            notification = new Notification(username, username);
+        }
+        return new LoginUserDetails(username, firstName, lastName, notification);
     }
 
 
